@@ -8,10 +8,11 @@ gem 'rails', '~> 5.2.3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
-
 gem 'rake'
 gem 'rspec'
 gem 'kramdown'
+
+gem 'pg'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
@@ -38,11 +39,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.5'
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg', '~> 0.18'
 end
 
 group :development do
