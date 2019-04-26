@@ -1,5 +1,9 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+# Fix for error: `no such file to load -- rspec/core/rake_task`
+
+# Heroku builds apps without the Gemfile's development/test groups, which is where we have rspec installed 
+# So when Heroku runs the Rakefile it expects rspec even though it doesn't exist in production
+# That's why we need to add an unless to make sure we only run rspec outside of production
+
 unless Rails.env.production?
   begin
     require 'rspec/core/rake_task'
