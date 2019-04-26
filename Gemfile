@@ -5,8 +5,6 @@ ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
-# Use sqlite3 as the database for Active Record
-gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -16,7 +14,7 @@ gem 'puma', '~> 3.11'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
-
+gem 'rack-timeout', '0.3.2'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -37,7 +35,9 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-gem 'pg', group: :production
+group :production do
+  gem 'pg'
+end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
