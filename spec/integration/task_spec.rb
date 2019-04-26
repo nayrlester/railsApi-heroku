@@ -9,19 +9,23 @@ describe 'Tasks API' do
       tags 'Tasks'
       consumes 'application/json', 'application/xml'
       parameter name: :task_name, name: :description, in: :body, schema: {
-        type: :object,
+        type: :array,
         properties: {
           task_name: { type: :string },
-          description: { type: :text }
+          description: { type: :string }
         },
         required: [ 'task_name', 'description' ]
       }
 
-      response '201', 'Tasks created' do
+      response '200', 'New tasks created' do
         run_test!
       end
 
-      response '422', 'invalid request' do
+      response '422', 'Failed adding new tasks' do
+        run_test!
+      end
+
+      response '500', 'Internal Server Error' do
         run_test!
       end
     end
@@ -32,20 +36,50 @@ describe 'Tasks API' do
     get 'Retrieves a tasks' do
       tags 'Tasks'
       produces 'application/json', 'application/xml'
-      parameter name: :id, :in => :path, :type => :string
+      parameter name: :id, :in => :path, :type => :integer
 
       response '200', 'Tasks found' do
         schema type: :array,
         properties: {
-          id: {type: :int},
+          id: {type: :integer},
           task_name: { type: :string },
-          description: { type: :text }
+          description: { type: :string }
         },
         required: [ 'id' ]
 
         run_test!
       end
       response '422', 'invalid request' do
+        run_test!
+      end
+      response '500', 'Internal Server Error' do
+        run_test!
+      end
+
+    end
+  end
+
+  path '/tasks' do
+
+    delete 'Delete tasks' do
+      tags 'Tasks'
+      consumes 'application/json', 'application/xml'
+      parameter name: :taskId, :in => :path, :type => :integer
+
+      response '200', 'Tasks deleted' do
+        schema type: :array,
+        properties: {
+          id: {type: :integer},
+          task_name: { type: :string },
+          description: { type: :string }
+        }
+        run_test!
+      end
+
+      response '422', 'Task not Found' do
+        run_test!
+      end
+      response '500', 'Internal Server Error' do
         run_test!
       end
     end

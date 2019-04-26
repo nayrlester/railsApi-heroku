@@ -20,13 +20,13 @@
             "name": "description",
             "in": "body",
             "schema": {
-              "type": "object",
+              "type": "array",
               "properties": {
                 "task_name": {
                   "type": "string"
                 },
                 "description": {
-                  "type": "text"
+                  "type": "string"
                 }
               },
               "required": [
@@ -37,11 +37,14 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Tasks created"
+          "200": {
+            "description": "New tasks created"
           },
           "422": {
-            "description": "invalid request"
+            "description": "Failed adding new tasks"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -58,7 +61,7 @@
           {
             "name": "id",
             "in": "path",
-            "type": "string",
+            "type": "integer",
             "required": true
           }
         ],
@@ -69,13 +72,13 @@
               "type": "array",
               "properties": {
                 "id": {
-                  "type": "int"
+                  "type": "integer"
                 },
                 "task_name": {
                   "type": "string"
                 },
                 "description": {
-                  "type": "text"
+                  "type": "string"
                 }
               },
               "required": [
@@ -85,6 +88,52 @@
           },
           "422": {
             "description": "invalid request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete tasks",
+        "tags": [
+          "Tasks"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tasks deleted",
+            "schema": {
+              "type": "array",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "task_name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Task not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
