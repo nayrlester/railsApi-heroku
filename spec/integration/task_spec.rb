@@ -7,7 +7,7 @@ describe 'Tasks API' do
 
     post 'Create new tasks' do
       tags 'Tasks'
-      security [Bearer: {}]
+      security Bearer: {}
       consumes 'application/json', 'application/xml'
       parameter name: :task_name, name: :description, in: :body, schema: {
         type: :object,
@@ -37,9 +37,9 @@ describe 'Tasks API' do
 
     get 'Retrieves a tasks' do
       tags 'Tasks'
-      security [Bearer: {}]
+      security Bearer: {}
       produces 'application/json', 'application/xml'
-      parameter name: :id, :in => :path, :type => :integer
+      parameter name: :id, :in => :path, :type => :string
 
       response '200', 'Tasks found' do
         schema type: :object,
@@ -48,12 +48,12 @@ describe 'Tasks API' do
           task_name: { type: :string },
           description: { type: :string }
         },
-        required: [ 'id' ]
-
+        required: [ 'id', 'task_name' ]
         let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
       response '422', 'invalid request' do
+        let(:id) { 'invalid' }
         run_test!
       end
       response '500', 'Internal Server Error' do
@@ -68,16 +68,10 @@ describe 'Tasks API' do
     delete 'Delete tasks' do
       tags 'Tasks'
       consumes 'application/json', 'application/xml'
-      security [Bearer: {}]
+      security Bearer: {}
       parameter name: :id, :in => :path, :type => :integer
 
-      response '200', 'Tasks deleted' do
-        schema type: :object,
-        properties: {
-          id: {type: :integer},
-          task_name: { type: :string },
-          description: { type: :string }
-        }
+      response '204', 'Tasks deleted' do
         let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
