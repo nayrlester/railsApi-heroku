@@ -83,6 +83,7 @@ describe 'Tasks API' do
       end
 
       response '422', 'Task not Found' do
+        let(:id) { 'invalid' }
         run_test!
       end
       response '500', 'Internal Server Error' do

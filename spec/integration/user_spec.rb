@@ -36,7 +36,7 @@ describe 'Users API' do
       tags 'Users'
       produces 'application/json', 'application/xml'
       security [Bearer: {}]
-      parameter name: :id, :in => :path, :type => :string
+      parameter name: :email, :in => :path, :type => :string
 
       response '200', 'User found' do
         schema type: :object,
@@ -48,11 +48,12 @@ describe 'Users API' do
           email: { type: :string },
           password: { type: :string }
         },
-        required: [ 'email', 'password' ]
+        required: [ 'id', 'email' ]
         let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
       response '422', 'invalid request' do
+        let(:id) { 'invalid' }
         run_test!
       end
     end
