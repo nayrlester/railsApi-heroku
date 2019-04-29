@@ -19,12 +19,11 @@
         "tags": [
           "Tasks"
         ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
+        "security": {
+          "Bearer": [
+
+          ]
+        },
         "consumes": [
           "application/json",
           "application/xml"
@@ -69,12 +68,11 @@
         "tags": [
           "Tasks"
         ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
+        "security": {
+          "Bearer": [
+
+          ]
+        },
         "produces": [
           "application/json",
           "application/xml"
@@ -83,7 +81,7 @@
           {
             "name": "id",
             "in": "path",
-            "type": "integer",
+            "type": "string",
             "required": true
           }
         ],
@@ -104,7 +102,8 @@
                 }
               },
               "required": [
-                "id"
+                "id",
+                "task_name"
               ]
             }
           },
@@ -125,12 +124,11 @@
           "application/json",
           "application/xml"
         ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
+        "security": {
+          "Bearer": [
+
+          ]
+        },
         "parameters": [
           {
             "name": "id",
@@ -140,22 +138,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Tasks deleted",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer"
-                },
-                "task_name": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                }
-              }
-            }
+          "204": {
+            "description": "Tasks deleted"
           },
           "422": {
             "description": "Task not Found"

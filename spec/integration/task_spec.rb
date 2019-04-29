@@ -7,7 +7,7 @@ describe 'Tasks API' do
 
     post 'Create new tasks' do
       tags 'Tasks'
-      security Bearer: {}
+      security Bearer: []
       consumes 'application/json', 'application/xml'
       parameter name: :task_name, name: :description, in: :body, schema: {
         type: :object,
@@ -37,7 +37,7 @@ describe 'Tasks API' do
 
     get 'Retrieves a tasks' do
       tags 'Tasks'
-      security Bearer: {}
+      security Bearer: []
       produces 'application/json', 'application/xml'
       parameter name: :id, :in => :path, :type => :string
 
@@ -68,7 +68,7 @@ describe 'Tasks API' do
     delete 'Delete tasks' do
       tags 'Tasks'
       consumes 'application/json', 'application/xml'
-      security Bearer: {}
+      security Bearer: []
       parameter name: :id, :in => :path, :type => :integer
 
       response '204', 'Tasks deleted' do
