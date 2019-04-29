@@ -10,7 +10,7 @@ describe 'Tasks API' do
       security [Bearer: {}]
       consumes 'application/json', 'application/xml'
       parameter name: :task_name, name: :description, in: :body, schema: {
-        type: :array,
+        type: :object,
         properties: {
           task_name: { type: :string },
           description: { type: :string }
@@ -72,7 +72,7 @@ describe 'Tasks API' do
       parameter name: :id, :in => :path, :type => :integer
 
       response '200', 'Tasks deleted' do
-        schema type: :array,
+        schema type: :object,
         properties: {
           id: {type: :integer},
           task_name: { type: :string },

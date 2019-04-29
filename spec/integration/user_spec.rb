@@ -39,7 +39,7 @@ describe 'Users API' do
       parameter name: :id, :in => :path, :type => :string
 
       response '200', 'User found' do
-        schema type: :array,
+        schema type: :object,
         properties: {
           id: {type: :integer},
           first_name: { type: :string },
