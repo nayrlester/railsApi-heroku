@@ -35,12 +35,13 @@ describe 'Users API' do
     get 'Retrieves a user' do
       tags 'Users'
       produces 'application/json', 'application/xml'
+      security [Bearer: {}]
       parameter name: :id, :in => :path, :type => :string
 
       response '200', 'User found' do
         schema type: :array,
         properties: {
-          id: {type: :int},
+          id: {type: :integer},
           first_name: { type: :string },
           last_name: { type: :string },
           username: { type: :string },
@@ -48,7 +49,7 @@ describe 'Users API' do
           password: { type: :string }
         },
         required: [ 'email', 'password' ]
-
+        let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
       response '422', 'invalid request' do
@@ -63,6 +64,7 @@ describe 'Users API' do
     post 'Auth users login' do
       tags 'Auth'
       consumes 'application/json', 'application/xml'
+      produces 'application/json', 'application/xml'
       parameter name: :email, name: :password, in: :body, schema: {
         type: :object,
         properties: {

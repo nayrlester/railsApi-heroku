@@ -7,6 +7,7 @@ describe 'Tasks API' do
 
     post 'Create new tasks' do
       tags 'Tasks'
+      security [Bearer: {}]
       consumes 'application/json', 'application/xml'
       parameter name: :task_name, name: :description, in: :body, schema: {
         type: :array,
@@ -18,6 +19,7 @@ describe 'Tasks API' do
       }
 
       response '200', 'New tasks created' do
+        let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
 
@@ -35,6 +37,7 @@ describe 'Tasks API' do
 
     get 'Retrieves a tasks' do
       tags 'Tasks'
+      security [Bearer: {}]
       produces 'application/json', 'application/xml'
       parameter name: :id, :in => :path, :type => :integer
 
@@ -47,6 +50,7 @@ describe 'Tasks API' do
         },
         required: [ 'id' ]
 
+        let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
       response '422', 'invalid request' do
@@ -64,6 +68,7 @@ describe 'Tasks API' do
     delete 'Delete tasks' do
       tags 'Tasks'
       consumes 'application/json', 'application/xml'
+      security [Bearer: {}]
       parameter name: :id, :in => :path, :type => :integer
 
       response '200', 'Tasks deleted' do
@@ -73,6 +78,7 @@ describe 'Tasks API' do
           task_name: { type: :string },
           description: { type: :string }
         }
+        let(:"Authorization") { "Bearer #{token_for(user)}" }
         run_test!
       end
 

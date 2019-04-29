@@ -4,12 +4,26 @@
     "title": "API V1",
     "version": "v1"
   },
+  "securityDefinitions": {
+    "Bearer": {
+      "description": "...",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
   "paths": {
     "/tasks": {
       "post": {
         "summary": "Create new tasks",
         "tags": [
           "Tasks"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
         ],
         "consumes": [
           "application/json",
@@ -54,6 +68,12 @@
         "summary": "Retrieves a tasks",
         "tags": [
           "Tasks"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
         ],
         "produces": [
           "application/json",
@@ -104,6 +124,12 @@
         "consumes": [
           "application/json",
           "application/xml"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
         ],
         "parameters": [
           {
@@ -203,6 +229,12 @@
           "application/json",
           "application/xml"
         ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -218,7 +250,7 @@
               "type": "array",
               "properties": {
                 "id": {
-                  "type": "int"
+                  "type": "integer"
                 },
                 "first_name": {
                   "type": "string"
@@ -255,6 +287,10 @@
           "Auth"
         ],
         "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
           "application/json",
           "application/xml"
         ],
