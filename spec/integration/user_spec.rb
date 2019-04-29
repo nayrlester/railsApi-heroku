@@ -30,12 +30,12 @@ describe 'Users API' do
     end
   end
 
-  path '/users' do
+  path '/users/{id}' do
 
     get 'Retrieves a user' do
       tags 'Users'
       produces 'application/json', 'application/xml'
-      parameter name: :email, :in => :path, :type => :string
+      parameter name: :id, :in => :path, :type => :string
 
       response '200', 'User found' do
         schema type: :array,

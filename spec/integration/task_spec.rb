@@ -31,7 +31,7 @@ describe 'Tasks API' do
     end
   end
 
-  path '/tasks' do
+  path '/tasks/{id}' do
 
     get 'Retrieves a tasks' do
       tags 'Tasks'
@@ -39,7 +39,7 @@ describe 'Tasks API' do
       parameter name: :id, :in => :path, :type => :integer
 
       response '200', 'Tasks found' do
-        schema type: :array,
+        schema type: :object,
         properties: {
           id: {type: :integer},
           task_name: { type: :string },
@@ -59,12 +59,12 @@ describe 'Tasks API' do
     end
   end
 
-  path '/tasks' do
+  path '/tasks/{id}' do
 
     delete 'Delete tasks' do
       tags 'Tasks'
       consumes 'application/json', 'application/xml'
-      parameter name: :taskId, :in => :path, :type => :integer
+      parameter name: :id, :in => :path, :type => :integer
 
       response '200', 'Tasks deleted' do
         schema type: :array,

@@ -47,7 +47,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/tasks/{id}": {
       "get": {
         "summary": "Retrieves a tasks",
         "tags": [
@@ -69,7 +71,7 @@
           "200": {
             "description": "Tasks found",
             "schema": {
-              "type": "array",
+              "type": "object",
               "properties": {
                 "id": {
                   "type": "integer"
@@ -105,7 +107,7 @@
         ],
         "parameters": [
           {
-            "name": "taskId",
+            "name": "id",
             "in": "path",
             "type": "integer",
             "required": true
@@ -189,7 +191,9 @@
             "description": "invalid request"
           }
         }
-      },
+      }
+    },
+    "/users/{id}": {
       "get": {
         "summary": "Retrieves a user",
         "tags": [
@@ -201,7 +205,7 @@
         ],
         "parameters": [
           {
-            "name": "email",
+            "name": "id",
             "in": "path",
             "type": "string",
             "required": true
