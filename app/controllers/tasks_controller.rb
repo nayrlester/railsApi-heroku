@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :find_task, except: %i[create index]
 
   # GET /tasks
   def index
@@ -28,9 +28,9 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      render json: @task
+      render json: @tasks
     else
-      render json: @task.errors, status: :unprocessable_entity
+      render json: @tasks.errors, status: :unprocessable_entity
     end
   end
 
@@ -41,14 +41,16 @@ class TasksController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
+    def find_task
+      @task = Task.find_by_id(params[:id])
+      rescue ActiveRecord::RecordNotFound
+      render json: { errors: 'Task not found' }, status: :not_found
     end
 
     # Only allow a trusted parameter "white list" through.
     def task_params
       params.permit(
-        :task_name, :description
+         :task_name, :description 
       )
     end
 end

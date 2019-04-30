@@ -36,7 +36,7 @@ describe 'Users API' do
       tags 'Users'
       produces 'application/json', 'application/xml'
       security [Bearer: {}]
-      parameter name: :email, :in => :path, :type => :string
+      parameter name: :id, :in => :path, :type => :string
 
       response '200', 'User found' do
         schema type: :object,
@@ -86,3 +86,4 @@ describe 'Users API' do
   end
 
 end
+

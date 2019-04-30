@@ -19,11 +19,12 @@
         "tags": [
           "Tasks"
         ],
-        "security": {
-          "Bearer": [
-
-          ]
-        },
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
         "consumes": [
           "application/json",
           "application/xml"
@@ -50,7 +51,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "New tasks created"
           },
           "422": {
@@ -68,20 +69,21 @@
         "tags": [
           "Tasks"
         ],
-        "security": {
-          "Bearer": [
-
-          ]
-        },
         "produces": [
           "application/json",
           "application/xml"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
         ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "type": "string",
+            "type": "integer",
             "required": true
           }
         ],
@@ -102,16 +104,12 @@
                 }
               },
               "required": [
-                "id",
-                "task_name"
+                "id"
               ]
             }
           },
-          "422": {
+          "404": {
             "description": "invalid request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -124,11 +122,16 @@
           "application/json",
           "application/xml"
         ],
-        "security": {
-          "Bearer": [
-
-          ]
-        },
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -140,6 +143,60 @@
         "responses": {
           "204": {
             "description": "Tasks deleted"
+          },
+          "422": {
+            "description": "Task not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update tasks",
+        "tags": [
+          "Tasks"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "task_name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "task_name",
+                "description"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tasks update"
           },
           "422": {
             "description": "Task not Found"
