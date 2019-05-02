@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authorize_request, except: :create
   before_action :find_task, except: %i[create index]
 
   # GET /tasks
